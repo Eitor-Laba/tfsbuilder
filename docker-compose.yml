@@ -1,0 +1,5 @@
+services:
+  tfsbuilder:
+    container_name: tfsbuilder
+    build: .
+    image: forgottenserver04
