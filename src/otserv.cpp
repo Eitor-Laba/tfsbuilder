@@ -419,6 +419,7 @@ void otserv(StringVec, ServiceManager* services)
 	if(!debug.empty())
 		std::clog << ">> Debugging:" << debug << "." << std::endl;
 
+	std::clog << ">> BUILD 19.15" << std::endl;
 	std::clog << ">> Loading config (" << g_config.getString(ConfigManager::CONFIG_FILE) << ")" << std::endl;
 	if(!g_config.load())
 		startupErrorMessage("Unable to load " + g_config.getString(ConfigManager::CONFIG_FILE) + "!");
@@ -430,7 +431,7 @@ void otserv(StringVec, ServiceManager* services)
 	path = g_config.getString(ConfigManager::LOGS_DIRECTORY);
 	g_config.setString(ConfigManager::LOGS_DIRECTORY, path.erase(path.find_last_not_of("/") + 1) + "/");
 
-	std::clog << ">> Opening logs" << std::endl;
+	std::clog << ">> Abrindo logs" << std::endl;
 	Logger::getInstance()->open();
 
 	IntegerVec cores = vectorAtoi(explodeString(g_config.getString(ConfigManager::CORES_USED), ","));

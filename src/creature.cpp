@@ -567,7 +567,8 @@ void Creature::onCreatureMove(const Creature *creature, const Tile *newTile, con
 					std::max(std::abs(newPos.x - summonPos.x), std::abs(newPos.y - summonPos.y)) > 10)
 				{
 					// Teleporta o summon para a posição do jogador
-					g_game.internalTeleport(summon, newPos,true);
+					g_game.internalTeleport(summon, newPos, true);
+					g_game.addMagicEffect(newPos, MAGIC_EFFECT_TELEPORT);
 				}
 			}
 		}

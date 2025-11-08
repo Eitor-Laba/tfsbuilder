@@ -14,17 +14,10 @@ WORKDIR /home/3777-master
 COPY . .
 
 # Limpa builds anteriores
-RUN rm -rf build bin
-
-# Cria a pasta para o binário
-RUN mkdir -p bin
+RUN rm -rf build
 
 # Gera os arquivos do CMake
 RUN cmake -S . -B build
 
 # Compila o projeto
 RUN cmake --build build -j$(nproc)
-
-# Move o binário para a pasta bin
-RUN mv build/theforgottenserver bin/
-
