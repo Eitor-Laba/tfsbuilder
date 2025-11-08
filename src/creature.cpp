@@ -536,23 +536,40 @@ void Creature::onCreatureMove(const Creature *creature, const Tile *newTile, con
 		else
 			stopEventWalk();
 
+		// PARTE DE TELETRANSPORTAR OS SUMMONS
+		/*
+	if(!summons.empty() && (!g_config.getBool(ConfigManager::TELEPORT_SUMMONS) ||
+		(g_config.getBool(ConfigManager::TELEPORT_PLAYER_SUMMONS) && !getPlayer())))
+	{
+		std::list<Creature*>::iterator cit;
+		std::list<Creature*> despawnList;
+		for(cit = summons.begin(); cit != summons.end(); ++cit)
+		{
+			const Position pos = (*cit)->getPosition();
+			if((std::abs(pos.z - newPos.z) > 2) || (std::max(std::abs((
+				newPos.x) - pos.x), std::abs((newPos.y - 1) - pos.y)) > 30))
+				despawnList.push_back(*cit);
+		}
+
+		for(cit = despawnList.begin(); cit != despawnList.end(); ++cit)
+			g_game.removeCreature((*cit), true);
+	}*/
+
 		if (!summons.empty() && (!g_config.getBool(ConfigManager::TELEPORT_SUMMONS) ||
 								 (g_config.getBool(ConfigManager::TELEPORT_PLAYER_SUMMONS) && !getPlayer())))
 		{
-			std::list<Creature *>::iterator cit;
-			std::list<Creature *> despawnList;
-			for (cit = summons.begin(); cit != summons.end(); ++cit)
+			for (Creature *summon : summons)
 			{
-				const Position pos = (*cit)->getPosition();
-				if ((std::abs(pos.z - newPos.z) > 2) || (std::max(std::abs((
-																			   newPos.x) -
-																		   pos.x),
-																  std::abs((newPos.y - 1) - pos.y)) > 30))
-					despawnList.push_back(*cit);
-			}
+				const Position summonPos = summon->getPosition();
 
-			for (cit = despawnList.begin(); cit != despawnList.end(); ++cit)
-				g_game.removeCreature((*cit), true);
+				// Checa se está fora da distância de 10 sqm ou Z diferente
+				if (std::abs(summonPos.z - newPos.z) > 0 ||
+					std::max(std::abs(newPos.x - summonPos.x), std::abs(newPos.y - summonPos.y)) > 10)
+				{
+					// Teleporta o summon para a posição do jogador
+					g_game.internalTeleport(summon, newPos);
+				}
+			}
 		}
 
 		if (newTile->getZone() != oldTile->getZone())
