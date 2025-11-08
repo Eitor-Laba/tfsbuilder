@@ -263,6 +263,8 @@ Spawn::~Spawn()
 
 bool Spawn::findPlayer(const Position &pos)
 {
+	return false;
+	/*
 	SpectatorVec list;
 	g_game.getSpectators(list, pos);
 
@@ -272,8 +274,7 @@ bool Spawn::findPlayer(const Position &pos)
 		if ((tmpPlayer = (*it)->getPlayer()) && !tmpPlayer->hasFlag(PlayerFlag_IgnoredByMonsters))
 			return true;
 	}
-
-	return false;
+	return false;*/
 }
 
 bool Spawn::spawnMonster(uint32_t spawnId, MonsterType *mType, const Position &pos, Direction dir, bool startup /*= false*/)
@@ -365,6 +366,7 @@ void Spawn::checkSpawn()
 		}
 
 		spawnMonster(spawnId, sb.mType, sb.pos, sb.direction);
+		g_game.addMagicEffect(sb.pos, MAGIC_EFFECT_TELEPORT);
 		++spawnCount;
 		if (spawnCount >= (uint32_t)g_config.getNumber(ConfigManager::RATE_SPAWN))
 			break;
