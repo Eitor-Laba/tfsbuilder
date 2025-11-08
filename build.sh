@@ -27,6 +27,9 @@ docker run --name "$CONTAINER_NAME" "$SERVICE_NAME"
 
 # 5️⃣ Copia o binário para o host
 echo "Copiando theforgottenserver para $HOST_BIN_DIR..."
-    echo "Arquivo salvo como: $HOST_BIN_PATH"
+
+docker cp tfsbuilder:/home/3777-master/bin/theforgottenserver $HOST_BIN_PATH
+
+echo "Arquivo salvo como: $HOST_BIN_PATH"
 
 echo "Build e cópia concluídas com sucesso!"

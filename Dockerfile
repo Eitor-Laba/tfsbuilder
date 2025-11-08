@@ -13,9 +13,18 @@ WORKDIR /home/3777-master
 
 COPY . .
 
-# Build do TFS do zero
-RUN rm -rf build bin && \
-    mkdir -p bin && \
-    cmake -S . -B build && \
-    cmake --build build -j$(nproc) && \
-    mv build/theforgottenserver bin/
+# Limpa builds anteriores
+RUN rm -rf build bin
+
+# Cria a pasta para o binário
+RUN mkdir -p bin
+
+# Gera os arquivos do CMake
+RUN cmake -S . -B build
+
+# Compila o projeto
+RUN cmake --build build -j$(nproc)
+
+# Move o binário para a pasta bin
+RUN mv build/theforgottenserver bin/
+
