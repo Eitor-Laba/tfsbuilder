@@ -222,7 +222,7 @@ std::string Player::getDescription(int32_t lookDistance) const
 
 		s << getSpecialDescription();
 	}
-	
+
 	s << " [" << resets << " reset" << (resets > 1 ? "s" : "") << "]";
 
 	std::string tmp;
@@ -1599,6 +1599,11 @@ void Player::onCreatureMove(const Creature *creature, const Tile *newTile, const
 	// unset editing house
 	if (editHouse && !newTile->hasFlag(TILESTATE_HOUSE))
 		editHouse = NULL;
+
+	if (moveaura > 0)
+	{
+		g_game.addMagicEffect(oldPos, moveaura);
+	}
 }
 
 void Player::onAddContainerItem(const Container *, const Item *item)

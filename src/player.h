@@ -179,6 +179,8 @@ class Player : public Creature, public Cylinder
 
 		static MuteCountMap muteCountMap;
 		
+		uint32_t getMoveAura() const { return moveaura; }
+        void setMoveAura(uint32_t a) { moveaura = a; }
 		uint32_t getResets() const { return resets; }
         void setResets(uint32_t r) { resets = r; }
 
@@ -1167,6 +1169,7 @@ class Player : public Creature, public Cylinder
 		int32_t shieldBlockCount;
 		int32_t shootRange;
 
+        uint32_t moveaura;
         uint32_t resets;
 		uint32_t clientVersion;
 		uint32_t messageTicks;

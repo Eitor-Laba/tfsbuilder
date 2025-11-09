@@ -384,7 +384,7 @@ bool IOLoginData::loadPlayer(Player* player, const std::string& name, bool preLo
 	query << "SELECT `id`, `account_id`, `group_id`, `world_id`, `sex`, `vocation`, `experience`, `level`, "
 	<< "`maglevel`, `health`, `healthmax`, `blessings`, `mana`, `manamax`, `manaspent`, `soul`, `lookbody`, "
 	<< "`lookfeet`, `lookhead`, `looklegs`, `looktype`, `lookaddons`, `posx`, `posy`, `posz`, `cap`, "
-	<< "`lastlogin`, `lastlogout`, `resets`, `lastip`, `conditions`, `skull`, `skulltime`, `guildnick`, `rank_id`, "
+	<< "`lastlogin`, `lastlogout`, `resets`,`moveaura`, `lastip`, `conditions`, `skull`, `skulltime`, `guildnick`, `rank_id`, "
 	<< "`town_id`, `balance`, `stamina`, `direction`, `loss_experience`, `loss_mana`, `loss_skills`, "
 	<< "`loss_containers`, `loss_items`, `marriage`, `promotion`, `description` FROM `players` WHERE "
 	<< "`name` " << db->getStringComparer() << db->escapeString(name) << " AND `world_id` = "
@@ -419,6 +419,7 @@ bool IOLoginData::loadPlayer(Player* player, const std::string& name, bool preLo
 		result->free();
 		return true;
 	}
+	player->setMoveAura(result->getDataInt("moveaura"));
 	player->setResets(result->getDataInt("resets"));
 
 	player->nameDescription += result->getDataString("description");

@@ -3540,8 +3540,8 @@ bool Game::playerLookAt(uint32_t playerId, const Position& pos, uint16_t spriteI
 		}
 	}
 
-	if(player->hasCustomFlag(PlayerCustomFlag_CanSeePosition))
-		ss << std::endl << "Position: [X: " << thingPos.x << "] [Y: " << thingPos.y << "] [Z: " << thingPos.z << "].";
+//	if(player->hasCustomFlag(PlayerCustomFlag_CanSeePosition))
+		ss << std::endl << "Position: (x: " << thingPos.x << ", y: " << thingPos.y << ", z: " << thingPos.z << ").";
 
 	player->sendTextMessage(MSG_INFO_DESCR, ss.str());
 	return true;
